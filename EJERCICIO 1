@@ -1,0 +1,10 @@
+from Scripts import holamundo
+
+
+def main():
+    print(holamundo.hm())
+
+
+if __name__ == '__main__':
+    main()
+    
