@@ -1,0 +1,17 @@
+from Scripts import unoalcien
+
+
+def main():
+    print(unoalcien.rev_unoalcien())
+
+
+if __name__ == '__main__':
+    main()
+
+###unoalcien
+
+def rev_unoalcien():
+    lista=[]
+    for valor in range(1, 101):
+        lista += [valor]
+    return list(reversed(lista))
