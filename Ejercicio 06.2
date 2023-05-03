@@ -1,0 +1,21 @@
+class Alumno:  
+def __init__(self, nombre, nota):  
+self.nombre = nombre  
+self.nota = nota  
+if nota >= 4:  
+self.cond = "Aprobado"  
+else:  
+self.cond = "Desaprobado"  
+  
+def __str__(self):  
+return "El alumno {}, tiene la nota {}, por lo que esta {}".format(self.nombre, self.nota, self.cond)  
+  
+  
+Pedro = Alumno("Pedro", 4)  
+print(Pedro)  
+Cecilia = Alumno("Cecilia", 8)  
+print(Cecilia)  
+Oscar = Alumno("Oscar", 2)  
+print(Oscar)  
+Cutufos = Alumno("Cutufos", 0)  
+print(Cutufos)
