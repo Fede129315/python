@@ -1,0 +1,30 @@
+import creadorvehiculos as c  
+import pickle as p  
+  
+  
+def main():  
+auto = c.vehiculo('auto', 'ford', 'focus', '5', 'full')  
+"""camioneta = c.vehiculo('camioneta', 'ford', 'ranger', '2', 'basic')"""  
+f = open('veiculos.bin', 'wb')  
+p.dump(auto, f)  
+f.close()  
+"""si quisiera leerlo  
+f.open('veiculos.bin', 'rb')  
+auto = p.load(f)  
+f.close() """  
+  
+if __name__ == '__main__':  
+main()
+
+## creadorvehiculos ##
+class vehiculo:  
+def __init__(self, tipo, marca, modelo, cantidadpuertas, equipamiento):  
+self.tipo = tipo  
+self.marca = marca  
+self.modelo = modelo  
+self.cantidadpuertas = cantidadpuertas  
+self.equipamiento = equipamiento  
+  
+def __str__(self):  
+return "El {} es un/a {} {}, cuenta con {} puertas y equipamiento {}"\  
+.format(self.tipo, self.marca, self.modelo, self.cantidadpuertas, self.equipamiento)
