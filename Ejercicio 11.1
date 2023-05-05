@@ -1,5 +1,7 @@
 import CrearTablaenpruebadb
 import BorrarTablaenpruebadb
+from Scripts import Agregarregistros
+from Scripts import busquedaEnTabla
 
 
 def main():
@@ -9,6 +11,14 @@ def main():
     if input("desea borrar una tabla, coloque y: ").lower() == 'y':
         nombre_tabla = input("Ingrese el nombre de la tabla: ")
         BorrarTablaenpruebadb.BorrarTabla(nombre_tabla)
+    if input("desea agregar registros a una tabla, coloque y: ").lower() == 'y':
+        nombre_tabla = input("Ingrese el nombre de la tabla: ")
+        Agregarregistros.AgregarRegistro(nombre_tabla)
+    if input("desea buscar registros de una tabla, coloque y: ").lower() == 'y':
+        nombre_tabla = input("Ingrese el nombre de la tabla: ")
+        nombre_columna = input("Ingrese el nombre de la columna que desea filtrar de la tabla: ")
+        nombre_filtro = input("Ingrese el valor a filtrar: ")
+        busquedaEnTabla.busquedafiltro(nombre_tabla, nombre_columna, nombre_filtro)
     print("Fin")
 
 
@@ -33,11 +43,10 @@ def CreaTabla(nombre_Tabla):
            query2 = query2 + f'{Listaheaders[arg]} {Listatypes[arg]} NOT NULL'
        else:
            query2 = query2 + f'{Listaheaders[arg]} {Listatypes[arg]} NOT NULL,'
-    query = f'CREATE TABLE IF NOT EXISTS {nombre_Tabla}(id SERIAL PRIMARY KEY,'+query2+");"
+    query = f'CREATE TABLE IF NOT EXISTS {nombre_Tabla}(id INTEGER PRIMARY KEY ,'+query2+");"
     cursor.execute(query)
     cursor.close()
     conn.close()
-
 
 ### BorrarTablaenpruebadb ###
 import sqlite3
@@ -46,5 +55,40 @@ def BorrarTabla(nombre_Tabla):
     conn = sqlite3.connect('prueba.db')
     cursor = conn.cursor()
     cursor.execute(f'DROP TABLE {nombre_Tabla}')
+    cursor.close()
+    conn.close()
+    
+
+### Agregarregistros ###
+import sqlite3
+
+def AgregarRegistro(nombre_Tabla):
+    conn = sqlite3.connect('prueba.db')
+    cursor = conn.cursor()
+    nAlumnos = int(input("Ingrese la cantidad de alumnos: "))
+    for arg in range(nAlumnos):
+        nombre_apellido = input("Ingrese nombre y apellido: ")
+        promedio = input("Ingrese promedio: ")
+        query = f'INSERT INTO {nombre_Tabla} VALUES({arg},' \
+                f'"{nombre_apellido}",' \
+                f'{promedio})'
+        print(query)
+        cursor.execute(query)
+        conn.commit()
+    cursor.close()
+    conn.close()
+    
+  ### busquedaEnTabla ###
+  
+  import sqlite3
+
+def busquedafiltro(nombreTabla,nombreColumna,nombreFiltro):
+    conn = sqlite3.connect('prueba.db')
+    cursor = conn.cursor()
+    query = f'SELECT * FROM {nombreTabla} ' \
+            f'WHERE {nombreColumna} = {nombreFiltro}'
+    rows = cursor.execute(query)
+    for row in rows:
+        print(row)
     cursor.close()
     conn.close()
